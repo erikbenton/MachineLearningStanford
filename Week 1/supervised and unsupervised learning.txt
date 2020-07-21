@@ -1,0 +1,11 @@
+Supervised Learning
+  In supervised learning, the data given has the "answers" in the results.
+  What this means is that we already know the outcomes of the data we are using.
+  This way, when the model makes a prediction, it can be checked against the real world data.
+  The results of the model can be supervised in the sense that we have something to compare it to.
+  An example would be teaching a model to predict possibility of cancer based off a dataset that shows the size of benign and malignant tumor growth
+
+Unsupervised Learning
+  In unsupervised learning the data given has no real labels or results in it.
+  Instead it's just a set of data that the model is supposed to tell us information about.
+  An example would be teaching a model to determine specific groups of people based on the genetic patterns in their DNA (without any guidance).
