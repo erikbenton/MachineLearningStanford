@@ -76,19 +76,30 @@ h = a3;
 temp1 = [zeros(size(Theta1,1), 1) Theta1(:,2:size(Theta1,2))];
 temp2 = [zeros(size(Theta2,1), 1) Theta2(:,2:size(Theta2,2))];
 
+y_vec = [1:num_labels] == y;
+
 % Going through each sample and summing the cost for each one
 for i = 1:m
   
   % Turning the expected label into it's corresponding vector
-  % i.e. - y = 5 => [0; 0; 0; 0; 1; 0; 0; 0; 0; 0];
-  y_i = zeros(size(h,2),1);
-  y_i(y(i)) = 1;
+  y_i = y_vec(i,:)';
   
   J = J + (1 / m) .* ( log(h(i,:)) * (-y_i) - log(1 - h(i,:)) * (1 - y_i) );
 endfor
 
 % Doing the regularization at the end to save calcs
 J = J + (lambda / (2 .* m)) .* ( sum(sum(temp1.^2)) + sum(sum(temp2.^2)) );
+
+% Doing the backpropagation part
+
+del_3 = a3 - y_vec;
+del_2 = del_3 * Theta2(:,2:end) .* sigmoidGradient(z2);
+
+delta_2 = del_3' * a2;
+delta_1 = del_2' * a1;
+
+Theta1_grad = (1/m) .* (del_2' * a1 + lambda .* temp1);
+Theta2_grad = (1/m) .* (del_3' * a2 + lambda .* temp2);
 
 % -------------------------------------------------------------
 
